@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class HomeController extends Controller
 {
     /**
@@ -11,10 +9,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
+    private $role;
+
+    public function __construct(){}
 
     /**
      * Show the application dashboard.
@@ -23,6 +21,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $this->role = auth()->user()->role;
+        return !empty($this->role) && view()->exists($this->role.'.home') ? view($this->role.'.home') : 'UNKNOWN USER';
     }
 }
