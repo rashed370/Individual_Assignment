@@ -14,7 +14,9 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <ul>
+                        <li><a href="{{ route('profile') }}">Update Profile</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
