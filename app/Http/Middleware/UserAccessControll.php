@@ -9,13 +9,15 @@ class UserAccessControll
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
+     * @param $role
      * @return mixed
      */
-    public function handle($request, Closure $next, $role)
+    public function handle($request, Closure $next, ...$role)
     {
-        if(!empty($role) && auth()->user()->role!=$role) {
+
+        if(!empty($role) && !in_array(auth()->user()->role, $role)) {
             return redirect()->route('home');
         }
 

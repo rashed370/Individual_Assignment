@@ -16,6 +16,9 @@
 
                     <ul>
                         <li><a href="{{ route('profile') }}">Update Profile</a></li>
+                        <li><a href="{{ route('posts') }}">Published Posts</a></li>
+                        <li><a href="{{ route('posts_own') }}">My Posts</a></li>
+                        <li><a href="{{ route('posts_create') }}">Create New Post</a></li>
                     </ul>
                 </div>
             </div>

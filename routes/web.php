@@ -24,6 +24,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/profile', 'ProfileController@index')->name('profile');
     Route::post('/profile', 'ProfileController@update')->name('profile_update');
+    Route::get('/posts', 'PostController@index')->name('posts');
+    Route::get('/posts/view/{id}', 'PostController@index')->name('posts_view');
 
     Route::group(['middleware' => ['access:admin']], function () {
         Route::get('/users', 'UserController@index')->name('users');
@@ -32,6 +34,19 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/users/update/{id}', 'UserController@update_index')->name('users_update');
         Route::post('/users/update/{id}', 'UserController@update_post')->name('users_update_post');
         Route::get('/users/delete/{id}', 'UserController@delete')->name('users_delete');
+        Route::get('/posts/pending', 'PostController@index')->name('posts_pending');
+    });
+
+    Route::group(['middleware' => ['access:scout']], function () {
+        Route::get('/posts/create', 'PostController@create')->name('posts_create');
+        Route::post('/posts/create', 'PostController@create_post')->name('posts_create_post');
+        Route::get('/posts/update/{id}', 'PostController@update')->name('posts_update');
+        Route::post('/posts/update/{id}', 'PostController@update_post')->name('posts_update_post');
+        Route::get('/posts/own', 'PostController@own')->name('posts_own');
+    });
+
+    Route::group(['middleware' => ['access:admin,scout']], function () {
+        Route::get('/posts/delete/{id}', 'PostController@delete')->name('posts_delete');
     });
 });
 

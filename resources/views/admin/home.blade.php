@@ -17,6 +17,7 @@
                     <ul>
                         <li><a href="{{ route('profile') }}">Update Profile</a></li>
                         <li><a href="{{ route('users') }}">All Users</a></li>
+                        <li><a href="{{ route('posts') }}">All Posts</a></li>
                     </ul>
                 </div>
             </div>
