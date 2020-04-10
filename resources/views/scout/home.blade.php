@@ -14,6 +14,12 @@
                         </div>
                     @endif
 
+                    @if (session('status_error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('status_error') }}
+                        </div>
+                    @endif
+
                     <ul>
                         <li><a href="{{ route('profile') }}">Update Profile</a></li>
                         <li><a href="{{ route('posts') }}">Published Posts</a></li>

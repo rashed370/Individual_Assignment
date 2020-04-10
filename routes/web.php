@@ -36,18 +36,24 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/users/delete/{id}', 'UserController@delete')->name('users_delete');
         Route::get('/posts/pending', 'PostController@pending')->name('posts_pending');
         Route::get('/posts/approve/{id}', 'PostController@approve')->name('posts_approve');
+        Route::get('/posts/modification', 'PostController@modification')->name('posts_modification');
+        Route::get('/posts/modification/{id}', 'PostController@modification_details')->name('posts_modification_detail');
+        Route::post('/posts/modification/{id}', 'PostController@modification_details_post')->name('posts_modification_detail_post');
+        Route::get('/posts/modification/delete/{id}', 'PostController@modification_delete')->name('posts_modification_delete');
+        Route::get('/posts/delete/{id}', 'PostController@delete')->name('posts_delete');
+        Route::get('/posts/remove/request', 'PostController@delete_list')->name('posts_delete_list');
     });
 
     Route::group(['middleware' => ['access:scout']], function () {
         Route::get('/posts/create', 'PostController@create')->name('posts_create');
         Route::post('/posts/create', 'PostController@create_post')->name('posts_create_post');
-        Route::get('/posts/update/{id}', 'PostController@update')->name('posts_update');
-        Route::post('/posts/update/{id}', 'PostController@update_post')->name('posts_update_post');
         Route::get('/posts/own', 'PostController@own')->name('posts_own');
+        Route::get('/posts/delete/request/{id}', 'PostController@delete_request')->name('posts_delete_request');
     });
 
     Route::group(['middleware' => ['access:admin,scout']], function () {
-        Route::get('/posts/delete/{id}', 'PostController@delete')->name('posts_delete');
+        Route::get('/posts/update/{id}', 'PostController@update')->name('posts_update');
+        Route::post('/posts/update/{id}', 'PostController@update_post')->name('posts_update_post');
     });
 });
 

@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Own Posts <a href="{{ route('posts_create') }}" class="btn btn-success float-right btn-sm">Add New</a></div>
+                    <div class="card-header">Post Modification Requests</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -34,12 +34,12 @@
                             <tbody>
                             @foreach($posts as $post)
                                 <tr>
-                                    <td>{{$post->place}}</td>
-                                    <td>{{$post->genre}}</td>
-                                    <td>{{$post->country}}</td>
-                                    <td>{{$post->cost}}</td>
-                                    <td>{!! $post->published==1 ? '<span class="badge badge-success">Published</span>' : '<span class="badge badge-warning">Pending</span>' !!}</td>
-                                    <td><a class="btn btn-primary btn-sm" href="{{route('posts_update', ['id' => $post->id])}}">Edit</a> <a class="btn btn-danger btn-sm" href="{{route('posts_delete_request', ['id' => $post->id])}}">Delete</a></td>
+                                    <td>{{$post->post->place}}</td>
+                                    <td>{{$post->post->genre}}</td>
+                                    <td>{{$post->post->country}}</td>
+                                    <td>{{$post->post->cost}}</td>
+                                    <td>{!! $post->post->published==1 ? '<span class="badge badge-success">Published</span>' : '<span class="badge badge-warning">Pending</span>' !!}</td>
+                                    <td> <a class="btn btn-primary btn-sm" href="{{route('posts_modification_detail', ['id' => $post->id])}}">Changes</a> <a class="btn btn-danger btn-sm" href="{{route('posts_modification_delete', ['id' => $post->id])}}">Delete</a></td>
                                 </tr>
                             @endforeach
                             </tbody>
