@@ -18,6 +18,7 @@
                         <li><a href="{{ route('profile') }}">Update Profile</a></li>
                         <li><a href="{{ route('users') }}">All Users</a></li>
                         <li><a href="{{ route('posts') }}">All Posts</a></li>
+                        <li><a href="{{ route('posts_pending') }}">Pending Posts ({{ App\Post::where('published', 0)->count() }})</a></li>
                     </ul>
                 </div>
             </div>

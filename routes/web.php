@@ -34,7 +34,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/users/update/{id}', 'UserController@update_index')->name('users_update');
         Route::post('/users/update/{id}', 'UserController@update_post')->name('users_update_post');
         Route::get('/users/delete/{id}', 'UserController@delete')->name('users_delete');
-        Route::get('/posts/pending', 'PostController@index')->name('posts_pending');
+        Route::get('/posts/pending', 'PostController@pending')->name('posts_pending');
+        Route::get('/posts/approve/{id}', 'PostController@approve')->name('posts_approve');
     });
 
     Route::group(['middleware' => ['access:scout']], function () {

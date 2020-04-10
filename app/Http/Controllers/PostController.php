@@ -7,10 +7,21 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function index()
+    {
+
+    }
+
     public function own()
     {
         $posts = Post::where('userid', auth()->user()->id)->get();
         return view('scout.posts.own', ['posts' => $posts]);
+    }
+
+    public function pending()
+    {
+        $posts = Post::where('published', 0)->get();
+        return view('scout.posts.pending', ['posts' => $posts]);
     }
 
     public function create()
@@ -63,5 +74,26 @@ class PostController extends Controller
     public function delete($id, Request $request)
     {
 
+    }
+
+    public function approve($id, Request $request)
+    {
+        $post = Post::find($id);
+
+        if($post!=null) {
+
+            $post->published = 1;
+
+            if($post->save()) {
+                $request->session()->flash('status', 'Post Request of Place '.$post->place.' approved successfully');
+                return redirect()->route('posts_pending');
+            }
+
+            $request->session()->flash('status_error', 'Something went wrong. Please try again later');
+            return redirect()->route('posts_pending');
+        }
+
+        $request->session()->flash('status_error', 'Post not found');
+        return redirect()->route('posts_pending');
     }
 }
