@@ -13,4 +13,8 @@ class Post extends Model
     public function removes() {
         return $this->hasMany("App\PostDelete", "postid");
     }
+
+    public function comments() {
+        return $this->hasMany("App\Comment", "postid");
+    }
 }

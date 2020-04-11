@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Post;
 use App\PostDelete;
 use App\PostUpdate;
@@ -351,5 +352,30 @@ class PostController extends Controller
 
         $request->session()->flash('status_error', 'Post not found');
         return redirect()->route('posts_modification');
+    }
+
+    public function delete_comment($id)
+    {
+        $comment = Comment::find($id);
+
+        if($comment!=null) {
+            $comment->delete();
+        }
+
+        return redirect()->back();
+    }
+
+    public function comment_post($id, Request $request) {
+        $data = $request->validate([
+            'comment' => 'required|string'
+        ]);
+
+        $comment = Comment::create([
+            'userid' => auth()->user()->id,
+            'postid' => $id,
+            'comment' => $data['comment']
+        ]);
+
+        return redirect()->back();
     }
 }

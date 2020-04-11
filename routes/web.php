@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/posts/modification/delete/{id}', 'PostController@modification_delete')->name('posts_modification_delete');
         Route::get('/posts/delete/{id}', 'PostController@delete')->name('posts_delete');
         Route::get('/posts/remove/request', 'PostController@delete_list')->name('posts_delete_list');
+        Route::get('/posts/remove/comment/{id}', 'PostController@delete_comment')->name('posts_delete_comment');
     });
 
     Route::group(['middleware' => ['access:scout']], function () {
@@ -61,6 +62,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/checklist', 'WishListController@index')->name('wishlist');
         Route::get('/checklist/add/{id}', 'WishListController@add')->name('wishlist_add');
         Route::get('/checklist/remove/{id}', 'WishListController@remove')->name('wishlist_delete');
+        Route::post('/posts/comment/{id}', 'PostController@comment_post')->name('posts_comment_post');
     });
 });
 
