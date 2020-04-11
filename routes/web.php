@@ -25,7 +25,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/profile', 'ProfileController@index')->name('profile');
     Route::post('/profile', 'ProfileController@update')->name('profile_update');
     Route::get('/posts', 'PostController@index')->name('posts');
-    Route::get('/posts/view/{id}', 'PostController@index')->name('posts_view');
+    Route::get('/posts/view/{id}', 'PostController@view')->name('posts_view');
 
     Route::group(['middleware' => ['access:admin']], function () {
         Route::get('/users', 'UserController@index')->name('users');

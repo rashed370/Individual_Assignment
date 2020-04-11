@@ -22,6 +22,7 @@
 
                     <ul>
                         <li><a href="{{ route('profile') }}">Update Profile</a></li>
+                        <li><a href="{{ route('posts') }}">Places</a></li>
                     </ul>
                 </div>
             </div>

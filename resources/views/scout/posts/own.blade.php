@@ -34,7 +34,7 @@
                             <tbody>
                             @foreach($posts as $post)
                                 <tr>
-                                    <td>{{$post->place}}</td>
+                                    <td><a href="{{ route('posts_view', ['id' => $post->id]) }}">{{$post->place}}</a></td>
                                     <td>{{$post->genre}}</td>
                                     <td>{{$post->country}}</td>
                                     <td>{{$post->cost}}</td>

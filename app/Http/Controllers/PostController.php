@@ -11,8 +11,26 @@ class PostController extends Controller
 {
     public function index()
     {
+        $posts = Post::where('published', 1);
 
+        return view('posts', ['posts' => $posts->get()]);
     }
+
+    public function view($id, Request $request)
+    {
+        $post = Post::find($id);
+
+        if($post!=null) {
+            if($post->published==1 || auth()->user()->role=='admin' || $post->userid==auth()->user()->id)
+            {
+                return view('post_view', ['post' => $post]);
+            }
+        }
+
+        $request->session()->flash('status_error', 'Post Not Found');
+        return redirect()->route('posts');
+    }
+
 
     public function own()
     {
