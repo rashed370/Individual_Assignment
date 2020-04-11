@@ -9,11 +9,69 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->session()->get('search');
         $posts = Post::where('published', 1);
 
+        if(!empty($search))
+        {
+            $posts->where(function ($query) use ($search) {
+                $flaq = false;
+                if(isset($search['place']) && !empty($search['place'])){
+                    if(!$flaq) {
+                        $query->whereRaw('LOWER(`place`) like ?', ['%'.$search['place'].'%']);
+                        $flaq = true;
+                    } else {
+                        $query->orWhereRaw('LOWER(`place`) like ?', ['%'.$search['place'].'%']);
+                    }
+                }
+
+                if(isset($search['country']) && !empty($search['country'])){
+                    if(!$flaq) {
+                        $query->whereRaw('LOWER(`country`) like ?', ['%'.$search['country'].'%']);
+                        $flaq = true;
+                    } else {
+                        $query->orWhereRaw('LOWER(`country`) like ?', ['%'.$search['country'].'%']);
+                    }
+                }
+
+                if(isset($search['genre']) && !empty($search['genre'])){
+                    if(!$flaq) {
+                        $query->whereRaw('LOWER(`genre`) like ?', ['%'.$search['genre'].'%']);
+                        $flaq = true;
+                    } else {
+                        $query->orWhereRaw('LOWER(`genre`) like ?', ['%'.$search['genre'].'%']);
+                    }
+                }
+
+                if(isset($search['cost_min']) && $search['cost_min']>=0){
+                    if(!$flaq) {
+                        $query->where('cost', '>=', $search['cost_min']);
+                        $flaq = true;
+                    } else {
+                        $query->orWhere('cost', '>=', $search['cost_min']);
+                    }
+                }
+
+                if(isset($search['cost_max']) && $search['cost_max']>=0){
+                    if(!$flaq) {
+                        $query->where('cost', '<=', $search['cost_max']);
+                        $flaq = true;
+                    } else {
+                        $query->orWhere('cost', '>=', $search['cost_max']);
+                    }
+                }
+            });
+        }
+
         return view('posts', ['posts' => $posts->get()]);
+    }
+
+    public function search(Request $request)
+    {
+        $request->session()->flash('search', $request->input());
+        return redirect()->back()->withInput();
     }
 
     public function view($id, Request $request)
