@@ -31,6 +31,7 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @php $totalCost = 0 @endphp
                             @foreach($posts as $post)
                                 <tr>
                                     <td><a href="{{ route('posts_view', ['id' => $post->post->id]) }}">{{$post->post->place}}</a></td>
@@ -39,7 +40,13 @@
                                     <td>{{$post->post->cost}}</td>
                                     <td><a class="btn btn-danger btn-sm" href="{{route('wishlist_delete', ['id' => $post->id])}}">Delete</a></td>
                                 </tr>
+                                @php $totalCost += $post->post->cost @endphp
                             @endforeach
+                                <tr>
+                                    <td colspan="3" class="text-right"> <strong>Total Cost</strong> </td>
+                                    <td> {{ $totalCost }}</td>
+                                    <td></td>
+                                </tr>
                             </tbody>
                         </table>
                         <a href="{{ route('home') }}">Back to Home</a>
