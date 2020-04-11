@@ -56,5 +56,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/posts/update/{id}', 'PostController@update')->name('posts_update');
         Route::post('/posts/update/{id}', 'PostController@update_post')->name('posts_update_post');
     });
+
+    Route::group(['middleware' => ['access:user']], function () {
+        Route::get('/checklist', 'WishListController@index')->name('wishlist');
+        Route::get('/checklist/add/{id}', 'WishListController@add')->name('wishlist_add');
+        Route::get('/checklist/remove/{id}', 'WishListController@remove')->name('wishlist_delete');
+    });
 });
 

@@ -23,6 +23,7 @@
                     <ul>
                         <li><a href="{{ route('profile') }}">Update Profile</a></li>
                         <li><a href="{{ route('posts') }}">Places</a></li>
+                        <li><a href="{{ route('wishlist') }}">Wish List ({{ App\WishList::count() }})</a></li>
                     </ul>
                 </div>
             </div>

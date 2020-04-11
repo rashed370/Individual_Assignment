@@ -55,7 +55,12 @@
                             {{ $post->details }}
                             <p><a href="{{ route('posts_view', ['id' => $post->id]) }}">View Details</a></p>
                         </div>
-                        <div class="card-footer">{{ $post->cost }} BDT</div>
+                        <div class="card-footer">
+                            {{ $post->cost }} BDT
+                            @if(auth()->user()->role=='user' && !(App\WishList::where('postid', $post->id)->where('userid', auth()->user()->id)->count()>0) )
+                                <a href="{{ route('wishlist_add', ['id' => $post->id]) }}" class="btn btn-success float-right btn-sm">Add to Wish List</a>
+                            @endif
+                        </div>
                     </div>
                 @endforeach
             </div>
