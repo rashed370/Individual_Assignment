@@ -49,7 +49,12 @@
                 </div>
                 @foreach($posts as $post)
                     <div class="card mt-4">
-                        <div class="card-header">{{ $post->place }} [ {{ $post->genre }} ]</div>
+                        <div class="card-header">{{ $post->place }} [ {{ $post->genre }} ]
+                            @if(auth()->user()->role=='admin')
+                                <a class="btn btn-danger btn-sm float-right" href="{{route('posts_delete', ['id' => $post->id])}}">Delete</a>
+                                <a class="btn btn-primary btn-sm float-right mr-2" href="{{route('posts_update', ['id' => $post->id])}}">Edit</a>
+                            @endif
+                        </div>
 
                         <div class="card-body">
                             {{ $post->details }}

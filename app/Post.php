@@ -10,11 +10,13 @@ class Post extends Model
         'userid', 'place', 'details', 'country', 'genre', 'medium', 'cost', 'published'
     ];
 
-    public function removes() {
+    public function removes()
+    {
         return $this->hasMany("App\PostDelete", "postid");
     }
 
-    public function comments() {
+    public function comments()
+    {
         return $this->hasMany("App\Comment", "postid");
     }
 }
